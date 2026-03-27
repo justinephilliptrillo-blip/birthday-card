@@ -1,1 +1,169 @@
-<img src="https://photos.fife.usercontent.google.com/pw/AP1GczORN_qE98dAmG8B5nT5DyC3A22AKCaG6ZPKVNWHAOAxUl1a02ymF0kz=w709-h945-s-no-gm?authuser=0" alt="Pre-loaded memory picture" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Bal🌙💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Patrick Hand', cursive;
+    background: linear-gradient(135deg, #020617, #0f172a, #1e3a8a);
+    color: #e6f0ff;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* animated stars */
+.star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 0.3; }
+    50% { transform: translateY(-20px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.3; }
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    backdrop-filter: blur(15px);
+}
+
+.candle {
+    font-size: 70px;
+    cursor: pointer;
+}
+
+.polaroid {
+    display: inline-block;
+    background: white;
+    padding: 10px 10px 25px;
+    margin: 10px;
+    border-radius: 10px;
+    transform: rotate(-2deg);
+}
+
+.polaroid img {
+    width: 120px;
+}
+
+.caption {
+    color: black;
+    font-size: 12px;
+}
+
+button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #4da3ff;
+    color: white;
+}
+
+.hidden { display:none; }
+</style>
+</head>
+
+<body>
+
+<!-- stars -->
+<script>
+for(let i=0;i<30;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.top=Math.random()*100+"%";
+  star.style.left=Math.random()*100+"%";
+  star.style.animationDuration=(3+Math.random()*5)+"s";
+  document.body.appendChild(star);
+}
+</script>
+
+<h1>🌙 Happy Birthday Bal 💙</h1>
+
+<!-- MUSIC (Blue - Yung Kai) -->
+<audio autoplay loop>
+  <source src="https://files.catbox.moe/8j0n9x.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <p contenteditable="true">
+  you are one of the most beautiful souls i know. thank you for bringing light and happiness into my life 💙
+  </p>
+</div>
+
+<div class="card">
+  <h2>🕯 Make a Wish</h2>
+  <div class="candle" onclick="blowCandle()">🕯</div>
+  <p id="msg" class="hidden">✨ you light up my universe 🌌</p>
+</div>
+
+<div class="card">
+  <h2>📸 Memories</h2>
+  <input type="file" onchange="addImage(event)">
+  <div id="gallery"></div>
+</div>
+
+<div class="card">
+  <h2>💌 Wishes</h2>
+  <input id="input" placeholder="type something...">
+  <button onclick="addWish()">add</button>
+  <div id="list"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+function blowCandle(){
+  document.querySelector(".candle").textContent="💨";
+  document.getElementById("msg").classList.remove("hidden");
+  confetti({particleCount:150,spread:100});
+}
+
+function addImage(e){
+  let div=document.createElement("div");
+  div.className="polaroid";
+
+  let img=document.createElement("img");
+  img.src=URL.createObjectURL(e.target.files[0]);
+
+  let cap=document.createElement("div");
+  cap.className="caption";
+  cap.innerText="memory 💙";
+
+  div.appendChild(img);
+  div.appendChild(cap);
+  document.getElementById("gallery").appendChild(div);
+}
+
+function addWish(){
+  let val=document.getElementById("input").value;
+  if(!val) return;
+
+  let div=document.createElement("div");
+  div.innerText="💙 "+val;
+  document.getElementById("list").appendChild(div);
+  document.getElementById("input").value="";
+}
+</script>
+
+</body>
+</html>
