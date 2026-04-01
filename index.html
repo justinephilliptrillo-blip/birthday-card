@@ -17,13 +17,48 @@ body {
     overflow-x: hidden;
 }
 
+/* Glowing and smaller heading */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em; /* smaller */
+    margin-top: 20px;
+    color: #7fdbff;
+    text-shadow: 
+        0 0 5px #7fdbff,
+        0 0 10px #7fdbff,
+        0 0 20px #7fdbff,
+        0 0 40px #0ff,
+        0 0 80px #0ff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 
+            0 0 5px #7fdbff,
+            0 0 10px #7fdbff,
+            0 0 20px #7fdbff,
+            0 0 40px #0ff,
+            0 0 80px #0ff;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #7fdbff,
+            0 0 20px #7fdbff,
+            0 0 30px #7fdbff,
+            0 0 50px #0ff,
+            0 0 100px #0ff;
+    }
+}
+
 .star {
     position: fixed;
-    width: 2px;
-    height: 2px;
+    width: 1px;
+    height: 1px;
     background: white;
     border-radius: 50%;
     animation: float 5s infinite ease-in-out;
+    opacity: 0.3;
 }
 
 @keyframes float {
@@ -32,24 +67,27 @@ body {
     100% { transform: translateY(0); opacity: 0.3; }
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-    margin-top: 20px;
-}
-
 .card {
     background: rgba(255,255,255,0.08);
     border-radius: 20px;
     padding: 20px;
     margin: 20px auto;
     width: 90%;
+    max-width: 400px;
     backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 .candle {
     font-size: 70px;
     cursor: pointer;
+    display: inline-block;
+    animation: flicker 1s infinite;
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 50%, 52%, 100% { opacity: 1; }
+    20%, 51% { opacity: 0.6; }
 }
 
 .polaroid {
@@ -59,10 +97,17 @@ h1 {
     margin: 10px;
     border-radius: 10px;
     transform: rotate(-2deg);
+    transition: transform 0.3s;
 }
 
 .polaroid img {
-    width: 140px;
+    width: 100%;
+    max-width: 180px;
+    border-radius: 5px;
+}
+
+.polaroid:hover {
+    transform: scale(1.05) rotate(-2deg);
 }
 
 .caption {
@@ -71,17 +116,23 @@ h1 {
 }
 
 .hidden { display:none; }
+
+audio { display:none; } /* hide audio player */
 </style>
 </head>
 
 <body>
 
 <script>
-for(let i=0;i<30;i++){
+// Create stars with random positions, size, and animation duration
+for(let i=0;i<50;i++){
   let star=document.createElement("div");
   star.className="star";
   star.style.top=Math.random()*100+"%";
   star.style.left=Math.random()*100+"%";
+  let size = Math.random() * 2 + 1; 
+  star.style.width = size + "px";
+  star.style.height = size + "px";
   star.style.animationDuration=(3+Math.random()*5)+"s";
   document.body.appendChild(star);
 }
@@ -96,7 +147,8 @@ for(let i=0;i<30;i++){
 <div class="card">
   <p contenteditable="true">
   You are one of the most beautiful souls I know, thank you for bringing light and happiness into my life. Your kindness, laughter, and presence make even the simplest moments brighter. 
-    I am so grateful for you, and I hope you always know how deeply you are appreciated and cherished. The world feels better with you in it.💙 </p>
+    I am so grateful for you, and I hope you always know how deeply you are appreciated and cherished. The world feels better with you in it.💙
+  </p>
 </div>
 
 <div class="card">
@@ -107,25 +159,23 @@ for(let i=0;i<30;i++){
 
 <div class="card">
   <h2>📸 Memories</h2>
-
-  <!-- ✅ YOUR WORKING IMAGE -->
   <div class="polaroid">
     <img src="64992626-EEB2-407F-9D65-9AF7D912DFA5.jpeg" alt="memory">
     <div class="caption">our memory 💙</div>
   </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 function blowCandle(){
-  document.querySelector(".candle").textContent="💨";
+  const candle = document.querySelector(".candle");
+  candle.textContent="💨";
+  candle.style.animation = "none"; // stop flicker
   document.getElementById("msg").classList.remove("hidden");
-  confetti({particleCount:150,spread:100});
+  confetti({particleCount:150, spread:100});
 }
 </script>
 
 </body>
 </html>
-
