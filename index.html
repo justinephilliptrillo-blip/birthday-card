@@ -17,7 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-/* animated stars */
 .star {
     position: fixed;
     width: 2px;
@@ -71,21 +70,12 @@ h1 {
     font-size: 12px;
 }
 
-button {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #4da3ff;
-    color: white;
-}
-
 .hidden { display:none; }
 </style>
 </head>
 
 <body>
 
-<!-- stars -->
 <script>
 for(let i=0;i<30;i++){
   let star=document.createElement("div");
@@ -99,7 +89,6 @@ for(let i=0;i<30;i++){
 
 <h1>🌙 Happy Birthday Bal 💙</h1>
 
-<!-- MUSIC (Blue - Yung Kai) -->
 <audio autoplay loop>
   <source src="https://files.catbox.moe/8j0n9x.mp3" type="audio/mpeg">
 </audio>
@@ -118,15 +107,13 @@ for(let i=0;i<30;i++){
 
 <div class="card">
   <h2>📸 Memories</h2>
-  <input type="file" onchange="addImage(event)">
-  <div id="gallery"></div>
-</div>
 
-<div class="card">
-  <h2>💌 Wishes</h2>
-  <input id="input" placeholder="type something...">
-  <button onclick="addWish()">add</button>
-  <div id="list"></div>
+  <div class="polaroid">
+    <img src="https://lh3.googleusercontent.com/d/AF1QipOnvEdwIiIK1Qr8Ti8_nwBNKmsOVuHc9aNIqvu4" alt="memory">
+    <div class="caption">our memory 💙</div>
+  </div>
+
+  <div id="gallery"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -136,32 +123,6 @@ function blowCandle(){
   document.querySelector(".candle").textContent="💨";
   document.getElementById("msg").classList.remove("hidden");
   confetti({particleCount:150,spread:100});
-}
-
-function addImage(e){
-  let div=document.createElement("div");
-  div.className="polaroid";
-
-  let img=document.createElement("img");
-  img.src=URL.createObjectURL(e.target.files[0]);
-
-  let cap=document.createElement("div");
-  cap.className="caption";
-  cap.innerText="memory 💙";
-
-  div.appendChild(img);
-  div.appendChild(cap);
-  document.getElementById("gallery").appendChild(div);
-}
-
-function addWish(){
-  let val=document.getElementById("input").value;
-  if(!val) return;
-
-  let div=document.createElement("div");
-  div.innerText="💙 "+val;
-  document.getElementById("list").appendChild(div);
-  document.getElementById("input").value="";
 }
 </script>
 
